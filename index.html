@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certification Table</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<h2>Certification Table</h2>
+
+<table border="1" id="table">
+<thead>
+<tr>
+<th>Department</th>
+<th>Task / Skill Requirement</th>
+<th>Vendor</th>
+<th>Certification Name</th>
+<th>Cost (USD)</th>
+<th>Justification</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<script>
+fetch("certifications.csv")
+.then(response => response.text())
+.then(data => {
+    const rows = data.split("\n").slice(1); // skip header row
+    const table = document.querySelector("tbody");
+
+    rows.forEach(row => {
+        if(row.trim() === "") return;
+
+        const columns = row.split(",");
+        const tr = document.createElement("tr");
+
+        columns.forEach(col => {
+            const td = document.createElement("td");
+            td.textContent = col.trim();
+            tr.appendChild(td);
+        });
+
+        table.appendChild(tr);
+    });
+});
+</script>
+
+</body>
+</html>
